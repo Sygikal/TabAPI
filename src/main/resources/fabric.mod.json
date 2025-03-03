@@ -9,8 +9,8 @@
 		"Globox_Z"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://discord.gg/Yyyv6Ya",
+		"sources": "https://github.com/Sygikal/TabAPI"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/tabapi/icon.png",
