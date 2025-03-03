@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.sygii.tabapi.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"client": [
+		"client.InventoryScreenMixin",
+		"client.HandledScreenMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
