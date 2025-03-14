@@ -19,6 +19,10 @@ repositories {
 	maven { url "https://maven.terraformersmc.com" }
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/tabapi.accesswidener")
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -27,8 +31,11 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	modApi ("dev.emi:emi-fabric:1.1.19+1.20.1")
+
+	modCompileOnly files('run/mods/disabled/libz-1.0.3.jar')
 }
 
 processResources {
