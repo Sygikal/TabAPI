@@ -10,6 +10,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import dev.sygii.tabapi.util.SortList;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.item.Items;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,12 +27,20 @@ public class TabAPI implements ClientModInitializer {
 
     public static final Identifier tabTexture = identifierOf("textures/gui/icons.png");
 
-    public static final boolean isL2loaded = FabricLoader.getInstance().isModLoaded("l2tabs");
+    public static final boolean isL2tabsloaded = FabricLoader.getInstance().isModLoaded("l2tabs");
+    public static final boolean isL2hostilityloaded = FabricLoader.getInstance().isModLoaded("l2hostility");
     public static final String MOD_ID = "tabapi";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     @Override
     public void onInitializeClient() {
+        /*if (isL2tabsloaded) {
+            TabAPI.registerInventoryTab(new L2Tab(L2TabsLangData.ATTRIBUTE.get(), TabAttributes::onTabClicked(), Items.IRON_SWORD.getDefaultStack(), 1, AttributeScreen.class));
+        }
+        if (isL2hostilityloaded) {
+            TabAPI.registerInventoryTab(new L2Tab(LHTexts.INFO_TAB_TITLE.get(), Items.ZOMBIE_HEAD.getDefaultStack(), 2, DifficultyScreen.class));
+        }*/
+        //TabAPI.registerInventoryTab(new TestTab(Text.translatable("container.crafting"), 0, InventoryScreen.class));
 
     }
 

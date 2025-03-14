@@ -3,11 +3,17 @@
 	"minVersion": "0.8",
 	"package": "dev.sygii.tabapi.mixin",
 	"compatibilityLevel": "JAVA_17",
+	"plugin": "dev.sygii.tabapi.mixin.TabAPIMixinPlugin",
 	"client": [
+		"client.HandledScreenMixin",
 		"client.InventoryScreenMixin",
-		"client.HandledScreenMixin"
+		"compat.DrawTabHelperMixin",
+		"compat.InventoryTabMixin",
+		"compat.TabRegistryMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
-	}
+	},
+	"mixins": [
+	]
 }

@@ -24,7 +24,7 @@ public interface Tab {
     }
 
     @Nullable
-    default Class<?> getParentScreenClass() {
+    default Class<?> getParent() {
         return null;
     }
 }

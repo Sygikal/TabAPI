@@ -32,17 +32,22 @@ public class DrawTabHelper {
      * @param mouseY      The y mouse position.
      */
     public static void drawTab(MinecraftClient client, DrawContext context, Screen screenClass, int x, int y, int mouseX, int mouseY) {
-        if (client != null && client.player != null /*&& ConfigInit.CONFIG.inventoryButton*/ && (Object) screenClass instanceof Tab) {
-
+        if (client != null && client.player != null /*&& ConfigInit.CONFIG.inventoryButton*/ && ((Object) screenClass instanceof Tab || screenClass instanceof net.libz.api.Tab)) {
+            Class<?> parent = null;
+            if ((Object) screenClass instanceof Tab tabAPITab) {
+                parent = tabAPITab.getParent();
+            } else if (screenClass instanceof net.libz.api.Tab libZTab) {
+                parent = libZTab.getParentScreenClass();
+            }
             int xPos = x;
             Text shownTooltip = null;
 
             List<InventoryTab> list = null;
-            if (((Tab) screenClass).getParentScreenClass() != null) {
-                if (TabAPI.otherTabs.isEmpty() || !TabAPI.otherTabs.containsKey(((Tab) screenClass).getParentScreenClass())) {
+            if (parent != null) {
+                if (TabAPI.otherTabs.isEmpty() || !TabAPI.otherTabs.containsKey(parent)) {
                     return;
                 }
-                list = TabAPI.otherTabs.get(((Tab) screenClass).getParentScreenClass());
+                list = TabAPI.otherTabs.get(parent);
             } else {
                 list = TabAPI.inventoryTabs;
             }
@@ -133,15 +138,21 @@ public class DrawTabHelper {
      * @param focused     If another child is focused.
      */
     public static void onTabButtonClick(MinecraftClient client, Screen screenClass, int x, int y, double mouseX, double mouseY, boolean focused) {
-        if (client != null /*&& ConfigInit.CONFIG.inventoryButton*/ && !focused && screenClass instanceof Tab) {
+        if (client != null /*&& ConfigInit.CONFIG.inventoryButton*/ && !focused && ((Object) screenClass instanceof Tab || screenClass instanceof net.libz.api.Tab)) {
+            Class<?> parent = null;
+            if ((Object) screenClass instanceof Tab tabAPITab) {
+                parent = tabAPITab.getParent();
+            } else if (screenClass instanceof net.libz.api.Tab libZTab) {
+                parent = libZTab.getParentScreenClass();
+            }
             int xPos = x;
 
             List<InventoryTab> list = null;
-            if (((Tab) screenClass).getParentScreenClass() != null) {
-                if (TabAPI.otherTabs.isEmpty() || !TabAPI.otherTabs.containsKey(((Tab) screenClass).getParentScreenClass())) {
+            if (parent != null) {
+                if (TabAPI.otherTabs.isEmpty() || !TabAPI.otherTabs.containsKey(parent)) {
                     return;
                 }
-                list = TabAPI.otherTabs.get(((Tab) screenClass).getParentScreenClass());
+                list = TabAPI.otherTabs.get(parent);
             } else {
                 list = TabAPI.inventoryTabs;
             }

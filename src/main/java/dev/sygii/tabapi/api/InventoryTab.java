@@ -37,6 +37,7 @@ public class InventoryTab {
      * @param preferedPos   Number of the prefered position. 0 = far left.
      * @param screenClasses Screen class list of the inventory tab screen.
      */
+
     public InventoryTab(Text title, @Nullable Identifier texture, int preferedPos, Class<?>... screenClasses) {
         this(title, texture, preferedPos, false, screenClasses);
     }
@@ -88,6 +89,10 @@ public class InventoryTab {
 
     public boolean canClick(Screen screen, MinecraftClient client) {
         return !isSelectedScreen(screen.getClass());
+    }
+
+    public Class<?>[] getScreenClasses() {
+        return screenClasses;
     }
 
     public boolean isSelectedScreen(Class<?> screenClass) {
