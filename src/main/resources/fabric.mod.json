@@ -23,6 +23,7 @@
 			"dev.sygii.tabapi.compat.TabAPIEmiPlugin"
 		]
 	},
+	"accessWidener": "tabapi.accesswidener",
 	"mixins": [
 		"tabapi.mixins.json"
 	],
