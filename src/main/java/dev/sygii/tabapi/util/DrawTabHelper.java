@@ -32,7 +32,7 @@ public class DrawTabHelper {
      * @param mouseY      The y mouse position.
      */
     public static void drawTab(MinecraftClient client, DrawContext context, Screen screenClass, int x, int y, int mouseX, int mouseY) {
-        if (client != null && client.player != null /*&& ConfigInit.CONFIG.inventoryButton*/ && ((Object) screenClass instanceof Tab || screenClass instanceof net.libz.api.Tab)) {
+        if (client != null && client.player != null /*&& ConfigInit.CONFIG.inventoryButton*/ && ((Object) screenClass instanceof Tab || (TabAPI.isLibZLoaded && screenClass instanceof net.libz.api.Tab))) {
             Class<?> parent = null;
             if ((Object) screenClass instanceof Tab tabAPITab) {
                 parent = tabAPITab.getParent();
@@ -138,7 +138,7 @@ public class DrawTabHelper {
      * @param focused     If another child is focused.
      */
     public static void onTabButtonClick(MinecraftClient client, Screen screenClass, int x, int y, double mouseX, double mouseY, boolean focused) {
-        if (client != null /*&& ConfigInit.CONFIG.inventoryButton*/ && !focused && ((Object) screenClass instanceof Tab || screenClass instanceof net.libz.api.Tab)) {
+        if (client != null /*&& ConfigInit.CONFIG.inventoryButton*/ && !focused && ((Object) screenClass instanceof Tab || (TabAPI.isLibZLoaded && screenClass instanceof net.libz.api.Tab))) {
             Class<?> parent = null;
             if ((Object) screenClass instanceof Tab tabAPITab) {
                 parent = tabAPITab.getParent();

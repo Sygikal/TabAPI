@@ -3,6 +3,7 @@ package dev.sygii.tabapi.mixin;
 import java.util.List;
 import java.util.Set;
 
+import dev.sygii.tabapi.TabAPI;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -23,7 +24,7 @@ public class TabAPIMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 
-        if (!FabricLoader.getInstance().isModLoaded("libz") &&
+        if (!TabAPI.isLibZLoaded &&
                 (mixinClassName.contains("DrawTabHelperMixin") || mixinClassName.contains("InventoryTabMixin") || mixinClassName.contains("TabRegistryMixin"))) {
             return false;
         }
