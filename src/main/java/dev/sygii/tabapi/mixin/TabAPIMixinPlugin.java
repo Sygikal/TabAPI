@@ -24,7 +24,7 @@ public class TabAPIMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 
-        if (!TabAPI.isLibZLoaded &&
+        if (!FabricLoader.getInstance().isModLoaded("libz") &&
                 (mixinClassName.contains("DrawTabHelperMixin") || mixinClassName.contains("InventoryTabMixin") || mixinClassName.contains("TabRegistryMixin"))) {
             return false;
         }

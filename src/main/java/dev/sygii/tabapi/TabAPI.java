@@ -29,7 +29,7 @@ public class TabAPI implements ClientModInitializer {
 
     public static final boolean isL2tabsloaded = FabricLoader.getInstance().isModLoaded("l2tabs");
     public static final boolean isL2hostilityloaded = FabricLoader.getInstance().isModLoaded("l2hostility");
-    public static final boolean isLibZLoaded = FabricLoader.getInstance().isModLoaded("libz");
+
     public static final String MOD_ID = "tabapi";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
