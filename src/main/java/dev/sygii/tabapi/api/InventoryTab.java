@@ -40,6 +40,10 @@ public class InventoryTab {
      * @param screenClasses Screen class list of the inventory tab screen.
      */
 
+    public InventoryTab(Text title, @Nullable Identifier texture, int preferedPos, Class<?>... screenClasses) {
+        this(null, title, texture, preferedPos, false, screenClasses);
+    }
+
     public InventoryTab(@Nullable Identifier id, Text title, @Nullable Identifier texture, int preferedPos, Class<?>... screenClasses) {
         this(id, title, texture, preferedPos, false, screenClasses);
     }
