@@ -33,6 +33,7 @@ public class DrawTabHelper {
      * @param mouseY      The y mouse position.
      */
     public static void drawTab(MinecraftClient client, DrawContext context, Screen screenClass, int x, int y, int mouseX, int mouseY) {
+        //if (!TabAPI.CLIENT.renderTabs) return;
         if (client != null && client.player != null /*&& ConfigInit.CONFIG.inventoryButton*/ && ((Object) screenClass instanceof Tab || (FabricLoader.getInstance().isModLoaded("libz") && screenClass instanceof net.libz.api.Tab))) {
             Class<?> parent = null;
             if ((Object) screenClass instanceof Tab tabAPITab) {
@@ -55,7 +56,7 @@ public class DrawTabHelper {
             if (list != null) {
                 for (int i = 0; i < list.size(); i++) {
                     InventoryTab inventoryTab = list.get(i);
-                    if (inventoryTab.shouldShow(client)) {
+                    if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
 
                         boolean isFirstTab = i == 0;
                         //boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
@@ -84,7 +85,7 @@ public class DrawTabHelper {
                 int yPos = y;
                 for (int i = 0; i < TabAPI.sideInventoryTabs.size(); i++) {
                     InventoryTab inventoryTab = TabAPI.sideInventoryTabs.get(i);
-                    if (inventoryTab.shouldShow(client)) {
+                    if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
 
                         boolean isFirstTab = i == 0;
                         //boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
@@ -139,6 +140,7 @@ public class DrawTabHelper {
      * @param focused     If another child is focused.
      */
     public static void onTabButtonClick(MinecraftClient client, Screen screenClass, int x, int y, double mouseX, double mouseY, boolean focused) {
+        //if (!TabAPI.CLIENT.renderTabs) return;
         if (client != null /*&& ConfigInit.CONFIG.inventoryButton*/ && !focused && ((Object) screenClass instanceof Tab || (FabricLoader.getInstance().isModLoaded("libz") && screenClass instanceof net.libz.api.Tab))) {
             Class<?> parent = null;
             if ((Object) screenClass instanceof Tab tabAPITab) {
@@ -160,7 +162,7 @@ public class DrawTabHelper {
             if (list != null) {
                 for (int i = 0; i < list.size(); i++) {
                     InventoryTab inventoryTab = list.get(i);
-                    if (inventoryTab.shouldShow(client)) {
+                    if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
                         boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
                         if (inventoryTab.canClick(screenClass, client)
                                 && isPointWithinBounds(x, y, xPos - x + 1, isSelectedTab ? -24 : -20, 22, isSelectedTab ? 23 : 19, (double) mouseX, (double) mouseY)) {
@@ -174,7 +176,7 @@ public class DrawTabHelper {
                 int yPos = y;
                 for (int i = 0; i < TabAPI.sideInventoryTabs.size(); i++) {
                     InventoryTab inventoryTab = TabAPI.sideInventoryTabs.get(i);
-                    if (inventoryTab.shouldShow(client)) {
+                    if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
                         boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
                         if (inventoryTab.canClick(screenClass, client)
                                 && isPointWithinBounds(x, y, isSelectedTab ? -24 : -20, yPos - y + 1, isSelectedTab ? 23 : 19, 22, (double) mouseX, (double) mouseY)) {

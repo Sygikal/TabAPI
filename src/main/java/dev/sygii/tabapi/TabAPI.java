@@ -1,9 +1,15 @@
 package dev.sygii.tabapi;
 
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import dev.sygii.tabapi.api.InventoryTab;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -33,6 +39,8 @@ public class TabAPI implements ClientModInitializer {
     public static final String MOD_ID = "tabapi";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
+    public static TabAPIConfig config = new TabAPIConfig();
+
     @Override
     public void onInitializeClient() {
         /*if (isL2tabsloaded) {
@@ -41,8 +49,46 @@ public class TabAPI implements ClientModInitializer {
         if (isL2hostilityloaded) {
             TabAPI.registerInventoryTab(new L2Tab(LHTexts.INFO_TAB_TITLE.get(), Items.ZOMBIE_HEAD.getDefaultStack(), 2, DifficultyScreen.class));
         }*/
-        //TabAPI.registerInventoryTab(new TestTab(Text.translatable("container.crafting"), 0, InventoryScreen.class));
+        File file = new File("config/tabapi_tabs.json");
+        if (file.exists()) {
+            config.tabs = readConfig();
+        }else {
+            saveConfig(config);
+        }
+        TabAPI.registerInventoryTab(new TestTab(Text.translatable("container.crafting"), 0, InventoryScreen.class));
+    }
 
+    public static Map<String, Boolean> readConfig() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        Type typeObject = new TypeToken<HashMap>() {}.getType();
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(
+                    new FileReader("config/tabapi_tabs.json"));
+            return gson.fromJson(bufferedReader, typeObject);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void saveConfig(TabAPIConfig config) {
+        //config.tabs.put("asd", true);
+
+        Type typeObject = new TypeToken<HashMap>() {}.getType();
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("config/tabapi_tabs.json");
+            writer.write(gson.toJson(config.tabs, typeObject));
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Identifier identifierOf(String name) {
@@ -55,6 +101,10 @@ public class TabAPI implements ClientModInitializer {
      * @param tab An instance of an InventoryTab class.
      */
     public static void registerInventoryTab(InventoryTab tab) {
+        if (tab.getID() != null && !config.tabs.containsKey(tab.getID().toString())) {
+            config.tabs.put(tab.getID().toString(), true);
+            saveConfig(config);
+        }
         /*if (LibzClient.isL2loaded) {
             ItemStack item = new ItemStack();
             dev.xkmc.l2tabs.tabs.inventory.TabRegistry.GROUP.registerTab(0, TabInventory::new, () -> Items.CRAFTING_TABLE, L2TabsLangData.INVENTORY.get());

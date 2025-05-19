@@ -23,6 +23,8 @@ import net.minecraft.util.Identifier;
 public class InventoryTab {
 
     private final Class<?>[] screenClasses;
+    @Nullable
+    private final Identifier id;
     private final Text title;
     @Nullable
     private final Identifier texture;
@@ -38,16 +40,22 @@ public class InventoryTab {
      * @param screenClasses Screen class list of the inventory tab screen.
      */
 
-    public InventoryTab(Text title, @Nullable Identifier texture, int preferedPos, Class<?>... screenClasses) {
-        this(title, texture, preferedPos, false, screenClasses);
+    public InventoryTab(@Nullable Identifier id, Text title, @Nullable Identifier texture, int preferedPos, Class<?>... screenClasses) {
+        this(id, title, texture, preferedPos, false, screenClasses);
     }
 
-    public InventoryTab(Text title, @Nullable Identifier texture, int preferedPos, boolean customTexture, Class<?>... screenClasses) {
+    public InventoryTab(@Nullable Identifier id, Text title, @Nullable Identifier texture, int preferedPos, boolean customTexture, Class<?>... screenClasses) {
+        this.id = id;
         this.screenClasses = screenClasses;
         this.title = title;
         this.texture = texture;
         this.preferedPos = preferedPos;
         this.customTexture = customTexture;
+    }
+
+    @Nullable
+    public Identifier getID() {
+        return this.id;
     }
 
     public Text getTitle() {

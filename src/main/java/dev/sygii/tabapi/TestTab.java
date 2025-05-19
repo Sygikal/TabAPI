@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 public class TestTab extends InventoryTab {
 
     public TestTab(Text title, int preferedPos, Class<?>... screenClasses) {
-        super(title, null, preferedPos, screenClasses);
+        super(Identifier.of("tabapi", "test"), title, null, preferedPos, screenClasses);
     }
 
     @Override

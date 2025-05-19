@@ -15,7 +15,7 @@ public class LibZTab extends InventoryTab {
     private final LibZRunner runner;
 
     public LibZTab(Text title, @Nullable Identifier texture, int preferedPos, LibZRunner runner, Class<?>... screenClasses) {
-        super(title, texture, preferedPos, screenClasses);
+        super(Identifier.of("libz", title.getString()), title, texture, preferedPos, screenClasses);
         this.runner = runner;
     }
 
