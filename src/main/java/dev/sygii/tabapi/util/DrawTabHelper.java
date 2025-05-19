@@ -54,11 +54,11 @@ public class DrawTabHelper {
                 list = TabAPI.inventoryTabs;
             }
             if (list != null) {
-                for (int i = 0; i < list.size(); i++) {
-                    InventoryTab inventoryTab = list.get(i);
+                int real = 0;
+                for (InventoryTab inventoryTab : list) {
                     if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
 
-                        boolean isFirstTab = i == 0;
+                        boolean isFirstTab = real == 0;
                         //boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
                         boolean isSelectedTab = inventoryTab.isSelected(screenClass);
 
@@ -78,16 +78,17 @@ public class DrawTabHelper {
                             shownTooltip = inventoryTab.getTitle();
                         }
                         xPos += 25;
+                        real++;
                     }
                 }
             }
             if (!TabAPI.sideInventoryTabs.isEmpty()) {
                 int yPos = y;
-                for (int i = 0; i < TabAPI.sideInventoryTabs.size(); i++) {
-                    InventoryTab inventoryTab = TabAPI.sideInventoryTabs.get(i);
+                int real = 0;
+                for (InventoryTab inventoryTab : TabAPI.sideInventoryTabs) {
                     if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
 
-                        boolean isFirstTab = i == 0;
+                        boolean isFirstTab = real == 0;
                         //boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
                         boolean isSelectedTab = inventoryTab.isSelected(screenClass);
 
@@ -116,6 +117,7 @@ public class DrawTabHelper {
                             shownTooltip = inventoryTab.getTitle();
                         }
                         yPos += 25;
+                        real++;
                     }
                 }
             }
@@ -160,8 +162,7 @@ public class DrawTabHelper {
                 list = TabAPI.inventoryTabs;
             }
             if (list != null) {
-                for (int i = 0; i < list.size(); i++) {
-                    InventoryTab inventoryTab = list.get(i);
+                for (InventoryTab inventoryTab : list) {
                     if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
                         boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
                         if (inventoryTab.canClick(screenClass, client)
@@ -174,8 +175,7 @@ public class DrawTabHelper {
             }
             if (!TabAPI.sideInventoryTabs.isEmpty()) {
                 int yPos = y;
-                for (int i = 0; i < TabAPI.sideInventoryTabs.size(); i++) {
-                    InventoryTab inventoryTab = TabAPI.sideInventoryTabs.get(i);
+                for (InventoryTab inventoryTab : TabAPI.sideInventoryTabs) {
                     if (inventoryTab.shouldShow(client) && (inventoryTab.getID() != null && TabAPI.config.tabs.get(inventoryTab.getID().toString()).booleanValue())) {
                         boolean isSelectedTab = inventoryTab.isSelectedScreen(screenClass.getClass());
                         if (inventoryTab.canClick(screenClass, client)
