@@ -52,10 +52,9 @@ public class TabAPI implements ClientModInitializer {
         File file = new File("config/tabapi_tabs.json");
         if (file.exists()) {
             config.tabs = readConfig();
-        }else {
-            saveConfig(config);
         }
-        TabAPI.registerInventoryTab(new TestTab(Text.translatable("container.crafting"), 0, InventoryScreen.class));
+        saveConfig(config);
+        //TabAPI.registerInventoryTab(new TestTab(Text.translatable("container.crafting"), 0, InventoryScreen.class));
     }
 
     public static Map<String, Boolean> readConfig() {
@@ -101,6 +100,7 @@ public class TabAPI implements ClientModInitializer {
      * @param tab An instance of an InventoryTab class.
      */
     public static void registerInventoryTab(InventoryTab tab) {
+        config.tabs = readConfig();
         if (tab.getID() != null && !config.tabs.containsKey(tab.getID().toString())) {
             config.tabs.put(tab.getID().toString(), true);
             saveConfig(config);
