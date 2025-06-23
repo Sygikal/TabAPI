@@ -14,6 +14,7 @@ import dev.sygii.tabapi.api.InventoryTab;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import dev.sygii.tabapi.util.SortList;
 import net.minecraft.client.MinecraftClient;
@@ -49,26 +50,33 @@ public class TabAPI implements ClientModInitializer {
         if (isL2hostilityloaded) {
             TabAPI.registerInventoryTab(new L2Tab(LHTexts.INFO_TAB_TITLE.get(), Items.ZOMBIE_HEAD.getDefaultStack(), 2, DifficultyScreen.class));
         }*/
-        File file = new File("config/tabapi_tabs.json");
-        if (file.exists()) {
-            config.tabs = readConfig();
-        }
-        saveConfig(config);
+
+        //ClientLifecycleEvents.CLIENT_STARTED.register((client) -> {
+            File file = new File("config/tabapi_tabs.json");
+            if (file.exists()) {
+                config.tabs = readConfig();
+            }
+        //});
+        //ClientLifecycleEvents.CLIENT_STOPPING.register((client) -> {
+            saveConfig(config);
+        ///});
         //TabAPI.registerInventoryTab(new TestTab(Text.translatable("container.crafting"), 0, InventoryScreen.class));
     }
 
     public static Map<String, Boolean> readConfig() {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
-        Type typeObject = new TypeToken<HashMap>() {}.getType();
-        BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+
+            Type typeObject = new TypeToken<HashMap>() {
+            }.getType();
+            BufferedReader bufferedReader = new BufferedReader(
                     new FileReader("config/tabapi_tabs.json"));
             return gson.fromJson(bufferedReader, typeObject);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        }catch (FileNotFoundException e) {
+            //sus
+            saveConfig(config);
+            return readConfig();
         }
     }
 
