@@ -132,6 +132,11 @@ public class TabAPI implements ClientModInitializer {
     }
 
     public static void registerSideInventoryTab(InventoryTab tab) {
+        config.tabs = readConfig();
+        if (tab.getID() != null && !config.tabs.containsKey(tab.getID().toString())) {
+            config.tabs.put(tab.getID().toString(), true);
+            saveConfig(config);
+        }
         /*if (LibzClient.isL2loaded) {
             ItemStack item = new ItemStack();
             dev.xkmc.l2tabs.tabs.inventory.TabRegistry.GROUP.registerTab(0, TabInventory::new, () -> Items.CRAFTING_TABLE, L2TabsLangData.INVENTORY.get());
@@ -161,6 +166,11 @@ public class TabAPI implements ClientModInitializer {
      * @param parentClass The parent class of the screen class where the tab will get added.
      */
     public static void registerOtherTab(InventoryTab tab, Class<?> parentClass) {
+        config.tabs = readConfig();
+        if (tab.getID() != null && !config.tabs.containsKey(tab.getID().toString())) {
+            config.tabs.put(tab.getID().toString(), true);
+            saveConfig(config);
+        }
         if (TabAPI.otherTabs.get(parentClass) != null) {
             TabAPI.otherTabs.get(parentClass).add(tab);
             // Sort prefered pos
